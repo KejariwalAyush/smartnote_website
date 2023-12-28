@@ -2,17 +2,25 @@ import 'package:flutter/material.dart';
 
 import 'components.dart';
 
-const String fontFamily = "Google Sans";
+const String fontFamily = "Comfortaa";
 
 // Simple
 const TextStyle headlineTextStyle = TextStyle(
-    fontSize: 44, color: textPrimary, height: 1.2, fontFamily: fontFamily);
+    fontSize: 44,
+    color: textPrimary,
+    height: 1.2,
+    fontFamily: fontFamily,
+    fontWeight: FontWeight.bold);
 
 const TextStyle headlineSecondaryTextStyle = TextStyle(
-    fontSize: 28, color: textPrimary, height: 1.2, fontFamily: fontFamily);
+    fontSize: 28,
+    color: textPrimary,
+    height: 1.2,
+    fontFamily: fontFamily,
+    fontWeight: FontWeight.w300);
 
 const TextStyle bodyTextStyle = TextStyle(
-    fontSize: 16, color: textPrimary, height: 1.5, fontFamily: "Roboto");
+    fontSize: 16, color: textPrimary, height: 1.5, fontFamily: fontFamily);
 
 TextStyle bodyLinkTextStyle = bodyTextStyle.copyWith(color: primary);
 
@@ -28,7 +36,7 @@ const TextStyle carouselBlueTextStyle = TextStyle(
       Shadow(
         color: Color(0xffFE8800),
         offset: Offset(2, 1.5),
-        blurRadius: 2,
+        blurRadius: 10,
       )
     ]);
 
@@ -40,6 +48,6 @@ const TextStyle carouselWhiteTextStyle = TextStyle(
       Shadow(
         color: Color(0xffFE8800),
         offset: Offset(2, 2),
-        blurRadius: 2,
+        blurRadius: 10,
       )
     ]);

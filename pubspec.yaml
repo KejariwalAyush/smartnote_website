@@ -20,6 +20,7 @@ dependencies:
   font_awesome_flutter: ^10.5.0
   firebase_core: ^2.15.1
   firebase_analytics: ^10.4.5
+  motion: ^1.4.0
 
 dev_dependencies:
   flutter_test:
@@ -46,4 +47,11 @@ flutter:
         - asset: assets/fonts/roboto_bold.ttf
           weight: 700
         - asset: assets/fonts/roboto_italic.ttf
+          style: italic
+    - family: Comfortaa
+      fonts:
+        - asset: assets/fonts/Comfortaa-Regular.ttf
+        - asset: assets/fonts/Comfortaa-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Comfortaa-Medium.ttf
           style: italic
