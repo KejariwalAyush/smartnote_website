@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_website/components/components.dart';
 import 'package:flutter_website/utils/utils.dart';
@@ -126,7 +127,10 @@ class CallToAction extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 32),
                 child: TextButton(
-                  onPressed: () => openUrl("mailto:ganeshkej@gmail.com"),
+                  onPressed: () async {
+                    await FirebaseAnalytics.instance.logAppOpen();
+                    openUrl("https://wa.me/c/917077533883");
+                  },
                   style: ButtonStyle(
                       backgroundColor:
                           MaterialStateProperty.all<Color>(primary),
@@ -314,7 +318,11 @@ class FlutterNewsCard extends StatelessWidget {
                   child: Text(title, style: headlineSecondaryTextStyle),
                 ),
                 TextButton(
-                  onPressed: () => openUrl(ctaLinkUrl),
+                  onPressed: () async {
+                    await FirebaseAnalytics.instance
+                        .logUnlockAchievement(id: ctaTitle);
+                    openUrl(ctaLinkUrl);
+                  },
                   style: ButtonStyle(
                       backgroundColor:
                           MaterialStateProperty.all<Color>(primary),

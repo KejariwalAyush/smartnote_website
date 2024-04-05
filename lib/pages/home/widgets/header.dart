@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_website/components/components.dart';
 import 'package:flutter_website/utils/utils.dart';
@@ -103,7 +104,10 @@ class Header extends StatelessWidget {
                   children: [
                     ResponsiveRowColumnItem(
                       child: TextButton(
-                        onPressed: () => openUrl("mailto:ganeshkej@gmail.com"),
+                        onPressed: () async {
+                          await FirebaseAnalytics.instance.logAppOpen();
+                          openUrl("https://wa.me/c/917077533883");
+                        },
                         style: ButtonStyle(
                             backgroundColor:
                                 MaterialStateProperty.all<Color>(primary),

@@ -2,6 +2,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_website/firebase_options.dart';
+import 'package:flutter_website/utils/utils.dart';
 import 'package:motion/motion.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
@@ -21,7 +22,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+    analytics.logEvent(
+        name: 'Website Open', callOptions: AnalyticsCallOptions(global: true));
     return MaterialApp(
       title: 'Smartnote | A GPW Offset Brand',
       // Wrapping the app with a builder method makes breakpoints
@@ -35,10 +39,13 @@ class MyApp extends StatelessWidget {
           const Breakpoint(start: 1921, end: double.infinity, name: '4K'),
         ],
       ),
-
       home: const Home(),
       routes: {
-        '/catalog': (context) => Catalog(),
+        '/catalog': (context) {
+          openUrl('https://wa.me/c/917077533883');
+          FirebaseAnalytics.instance.logAppOpen();
+          return const Catalog();
+        },
       },
       debugShowCheckedModeBanner: false,
     );

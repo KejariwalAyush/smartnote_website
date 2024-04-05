@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_website/components/components.dart';
 import 'package:flutter_website/utils/utils.dart';
@@ -123,7 +124,10 @@ class WebsiteMenuBar extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(left: 8, right: 0),
               child: TextButton(
-                onPressed: () => openUrl("tel:+919437082564"),
+                onPressed: () async {
+                  await FirebaseAnalytics.instance.logAppOpen();
+                  openUrl("https://wa.me/c/917077533883");
+                },
                 style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(primary),
                     overlayColor: MaterialStateProperty.resolveWith<Color>(

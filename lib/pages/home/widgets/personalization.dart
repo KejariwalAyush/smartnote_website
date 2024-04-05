@@ -1,7 +1,5 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_website/components/components.dart';
-import 'package:flutter_website/utils/utils.dart';
 import 'package:motion/motion.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
@@ -63,11 +61,11 @@ class Personalization extends StatelessWidget {
                                 "Your brand deserves to stand out. With our extensive customization options, we empower you to express your unique identity. Whether it's corporate branding or personalized gifts, we turn your vision into reality."),
                         const TextSpan(text: "\n\n"),
                         TextSpan(
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                openUrl(
-                                    "https://dribbble.com/shots/2940231-Google-Newsstand-Navigation-Pattern");
-                              },
+                            // recognizer: TapGestureRecognizer()
+                            //   ..onTap = () {
+                            //     openUrl(
+                            //         "https://dribbble.com/shots/2940231-Google-Newsstand-Navigation-Pattern");
+                            //   },
                             text: "Contact us to personalize your order",
                             style: bodyTextStyle.copyWith(
                                 fontSize: 12, color: primary)),
