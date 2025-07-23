@@ -1,1 +1,0 @@
-# smartnote_website
