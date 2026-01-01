@@ -4,7 +4,7 @@ import FirebaseAnalytics from "@/components/FirebaseAnalytics";
 
 export const metadata: Metadata = {
   title: "SmartNote | Premium School Stationery",
-  description: "Odisha's trusted manufacturer for Answer Booklets, OMR Sheets, and Custom Notebooks. Secure your supply for the April 2026 session today.",
+  description: "Odisha's trusted manufacturer for Answer Booklets, OMR Sheets, and Custom Notebooks. Secure your supply for upcoming academic sessions.",
 };
 
 export default function RootLayout({
