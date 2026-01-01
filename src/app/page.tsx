@@ -16,9 +16,11 @@ import {
   TrendingUp,
   MapPin,
   ShieldCheck,
-  Calendar
+  Calendar,
+  MessageCircle
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { logAnalyticsEvent } from '@/lib/firebase';
 
 const Home = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -31,6 +33,17 @@ const Home = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const currentDate = new Date();
+  const targetDate = new Date(2026, 3); // April 2026
+  const isPastApril2026 = currentDate > targetDate;
+
+  const sessionLabel = isPastApril2026 ? "Upcoming Sessions" : "April 2026 Session";
+  const sessionStatus = isPastApril2026 ? "Session Ready" : "April Session Ready";
+  const sessionHeadline = isPastApril2026 ? "New Sessions. Locked In." : "April 2026. Locked In.";
+  const sessionAdCopy = isPastApril2026
+    ? "The academic session is fast approaching. Lock in your factory priority today."
+    : "The 2026 academic session is fast approaching. Lock in your factory priority today.";
 
   if (!mounted) return null;
 
@@ -50,6 +63,8 @@ const Home = () => {
       setIsMenuOpen(false);
     }
   };
+
+
 
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },
@@ -83,6 +98,7 @@ const Home = () => {
                     width={scrolled ? 80 : 100}
                     height={25}
                     className="object-contain"
+                    priority
                   />
                 </div>
                 <span className="text-[0.6rem] font-bold tracking-widest uppercase text-stone-400 mt-0.5">A Unit of GPW Offset</span>
@@ -110,7 +126,7 @@ const Home = () => {
               >
                 <div className="absolute inset-x-0 bottom-0 h-0 w-full bg-gradient-to-r from-red-600 to-orange-600 group-hover:h-full transition-all duration-300 -z-10"></div>
                 <span className="relative flex items-center gap-2">
-                  Get 2026 Price List <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  Get your Quotation now! <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </span>
               </button>
             </div>
@@ -153,7 +169,7 @@ const Home = () => {
       </AnimatePresence>
 
       {/* Hero Section - Custom Notebook Background */}
-      <header className="relative pt-44 pb-16 md:pt-60 md:pb-32 overflow-hidden hero-background">
+      <header className="relative pt-44 pb-16 md:pt-60 md:pb-32 overflow-hidden">
         <h1 className="sr-only">Smartnote Odisha - Bulk Answer Sheet Manufacturer & School Stationery Supplier</h1>
 
         {/* Abstract Background Shapes */}
@@ -189,7 +205,7 @@ const Home = () => {
                   </span>
                 </h2>
                 <p className="text-lg md:text-xl text-stone-500 max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium">
-                  Odisha's trusted manufacturer for <strong className="text-stone-900">Answer Booklets, OMR Sheets, and Custom Notebooks</strong>. Secure your supply for the April 2026 session today.
+                  Odisha&apos;s trusted manufacturer for <strong className="text-stone-900">Answer Booklets, OMR Sheets, and Custom Notebooks</strong>. Secure your supply for the {sessionLabel.toLowerCase()} today.
                 </p>
               </div>
 
@@ -200,14 +216,14 @@ const Home = () => {
                 >
                   <div className="absolute inset-0 bg-red-600 translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-500 ease-in-out -z-10"></div>
                   <Download className="w-5 h-5 text-red-400 group-hover:text-white transition-colors" />
-                  <span>Price List 2026</span>
+                  <span>Get Your Quotation now!</span>
                 </button>
 
                 <div className="flex items-center justify-center gap-4 px-6 py-4 bg-white/50 border border-stone-100 rounded-2xl shadow-sm">
                   <div className="flex -space-x-2">
                     {[1, 2, 3, 4].map((i) => (
                       <div key={i} className="w-8 h-8 rounded-full bg-stone-100 border-2 border-white flex items-center justify-center overflow-hidden shrink-0">
-                        <img src={`https://i.pravatar.cc/150?u=${i + 20}`} alt="Client" className="w-full h-full object-cover grayscale" />
+                        <Image src={`https://i.pravatar.cc/150?u=${i + 20}`} alt="Client" width={32} height={32} className="w-full h-full object-cover grayscale" />
                       </div>
                     ))}
                   </div>
@@ -240,9 +256,9 @@ const Home = () => {
                     <div className="absolute inset-0 bg-gradient-to-t from-stone-900/95 via-transparent to-transparent flex flex-col justify-end p-6 md:p-8 text-white">
                       <div className="flex items-center gap-2 mb-3">
                         <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>
-                        <span className="text-[10px] font-black uppercase tracking-widest text-white/80">April Session Ready</span>
+                        <span className="text-[10px] font-black uppercase tracking-widest text-white/80">{sessionStatus}</span>
                       </div>
-                      <h3 className="text-xl md:text-2xl font-bold italic leading-tight">"Precision is our only benchmark."</h3>
+                      <h3 className="text-xl md:text-2xl font-bold italic leading-tight">&quot;Precision is our only benchmark.&quot;</h3>
                     </div>
                   </div>
                 </div>
@@ -271,18 +287,18 @@ const Home = () => {
                     invert: true
                   },
                   {
-                    src: "/mcl_logo.png",
+                    src: "/mcl-logo.png",
                     alt: "Mahanadi Coalfields",
                     name: "MCL (Mahanadi Coalfields)",
                     invert: true
                   },
                   {
-                    src: "/DAV_Institutions.png",
+                    src: "/dav-institutions.png",
                     alt: "DAV Institutions",
                     name: "DAV Institutions"
                   },
                   {
-                    src: "/St Paul.png",
+                    src: "/st-paul.png",
                     alt: "St Paul's School",
                     name: "St Paul’s School"
                   }
@@ -394,7 +410,7 @@ const Home = () => {
                 </div>
               </div>
               <div className="absolute right-[-5%] top-[-10%] w-[60%] h-[65%] rotate-[-12deg] group-hover:rotate-[-5deg] transition-transform duration-700 hidden lg:block overflow-hidden" >
-                <div className="w-full h-full bg-gradient-to-br from-white/40 to-transparent rounded-3xl backdrop-blur-3xl border border-white/10" style={{ borderRadius: '2.5rem', backgroundImage: 'url(/custom_notebook.png)', backgroundSize: 'contain', zoom: 1.2, color: 'transparent' }}></div>
+                <div className="w-full h-full bg-gradient-to-br from-white/40 to-transparent rounded-3xl backdrop-blur-3xl border border-white/10" style={{ borderRadius: '2.5rem', backgroundImage: 'url(/custom-notebook.png)', backgroundSize: 'contain', zoom: 1.2, color: 'transparent' }}></div>
               </div>
             </motion.div>
 
@@ -406,7 +422,7 @@ const Home = () => {
               <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-10">
                 <div className="max-w-xl">
                   <h3 className="text-4xl md:text-5xl font-black tracking-[0.01em] italic mb-6 leading-none">Comprehensive <br />Print Logistics.</h3>
-                  <p className="font-bold text-stone-900/80 text-lg md:text-xl leading-relaxed">From Admission Envelopes to Progress Report Cards — we handle the complete administrative print load for Odisha's top institutes.</p>
+                  <p className="font-bold text-stone-900/80 text-lg md:text-xl leading-relaxed">From Admission Envelopes to Progress Report Cards — we handle the complete administrative print load for Odisha&apos;s top institutes.</p>
                 </div>
                 <button
                   onClick={() => scrollToSection('contact')}
@@ -438,7 +454,7 @@ const Home = () => {
                     icon: <TrendingUp className="w-6 h-6" />
                   },
                   {
-                    title: "2026 Session Reliability",
+                    title: "Session Reliability",
                     desc: "25+ years of meeting tight academic deadlines. We produce millions of units monthly, ensuring you never run out of stock.",
                     icon: <Calendar className="w-6 h-6" />
                   },
@@ -478,7 +494,7 @@ const Home = () => {
                         </div>
                       </div>
                     </div>
-                    <p className="text-stone-800 font-bold text-xl md:text-2xl leading-relaxed italic pr-6">"Scaling our institutional requirements with Smartnote was seamless. Their industrial capacity is exactly what Odisha's education sector needed."</p>
+                    <p className="text-stone-800 font-bold text-xl md:text-2xl leading-relaxed italic pr-6">&quot;Scaling our institutional requirements with Smartnote was seamless. Their industrial capacity is exactly what Odisha&apos;s education sector needed.&quot;</p>
                     <div className="mt-10 md:mt-14 pt-8 border-t border-stone-200/50 flex items-center gap-5">
                       {/* <div className="w-14 h-14 rounded-2xl bg-white shadow-xl overflow-hidden ring-4 ring-white shrink-0">
                         <img src="https://i.pravatar.cc/150?u=42" alt="Director" className="w-full h-full object-cover grayscale" />
@@ -493,11 +509,11 @@ const Home = () => {
                   <div className="grid grid-cols-2 gap-6 md:gap-8">
                     <div className="bg-stone-950 p-8 md:p-10 rounded-[2.5rem] text-white shadow-2xl hover:scale-105 transition-transform duration-500 flex flex-col items-center justify-center text-center">
                       <p className="text-white/80 text-[10px] font-black uppercase tracking-[0.2em]">MSME Registered</p>
-                      <Image src="/msme_logo.png" alt="MSME Registration" width={150} height={50} className="object-contain filter brightness-200 mb-4 invert h-36" />
+                      <Image src="/msme-logo.png" alt="MSME Registration" width={150} height={50} className="object-contain filter brightness-200 mb-4 invert h-36" />
                     </div>
                     <div className="bg-red-600 p-8 md:p-10 rounded-[2.5rem] text-white shadow-2xl hover:scale-105 transition-transform duration-500 flex flex-col items-center justify-center text-center">
                       <p className="text-white/80 text-[10px] font-black uppercase tracking-[0.2em]">Made in India</p>
-                      <Image src="/make_in_india.png" alt="Made in India" width={150} height={50} className="object-contain filter brightness-0 invert" />
+                      <Image src="/make-in-india.png" alt="Made in India" width={150} height={50} className="object-contain filter brightness-0 invert" />
                     </div>
                   </div>
                 </div>
@@ -537,7 +553,7 @@ const Home = () => {
                     <strong className="text-white uppercase tracking-[0.2em] text-base font-black italic">SmartNote</strong> is the premium institutional wing of <strong className="text-white underline decoration-red-600 underline-offset-8">GPW Offset</strong> — a name synonymous with heavy-duty printing infrastructure since 2013.
                   </p>
                   <p>
-                    From the single machine in Rourkela that started it all, to our current multi-state distribution network, we've never shifted our focus: <span className="text-white italic font-bold">Absolute, measurable print quality.</span>
+                    From the single machine in Rourkela that started it all, to our current multi-state distribution network, we&apos;ve never shifted our focus: <span className="text-white italic font-bold">Absolute, measurable print quality.</span>
                   </p>
                 </div>
 
@@ -566,8 +582,8 @@ const Home = () => {
 
             <div className="relative z-10 grid lg:grid-cols-2 gap-20 lg:items-center">
               <div>
-                <h2 className="text-5xl md:text-7xl lg:text-8xl font-black mb-10 tracking-[0.01em] leading-none italic text-center lg:text-left">April 2026. <br />Locked In.</h2>
-                <p className="text-stone-500 text-xl md:text-2xl mb-14 max-w-lg mx-auto lg:mx-0 font-medium leading-relaxed text-center lg:text-left italic">The 2026 academic session is fast approaching. Lock in your factory priority today to ensure zero-delay distribution.</p>
+                <h2 className="text-5xl md:text-7xl lg:text-8xl font-black mb-10 tracking-[0.01em] leading-none italic text-center lg:text-left">{sessionHeadline}</h2>
+                <p className="text-stone-500 text-xl md:text-2xl mb-14 max-w-lg mx-auto lg:mx-0 font-medium leading-relaxed text-center lg:text-left italic">{sessionAdCopy}</p>
 
                 <div className="space-y-8 md:space-y-10 max-w-sm mx-auto lg:mx-0">
                   {[
@@ -590,25 +606,71 @@ const Home = () => {
 
               <div className="relative">
                 <div className="absolute -inset-10 bg-red-600 rounded-[3rem] blur-[100px] opacity-10"></div>
-                <form className="bg-white p-10 md:p-14 lg:p-16 rounded-[3rem] md:rounded-[4rem] shadow-2xl border border-stone-100 flex flex-col gap-8 relative z-10" onSubmit={(e) => e.preventDefault()}>
-                  <div className="space-y-3">
-                    <label className="text-[10px] md:text-xs font-black uppercase tracking-[0.2em] text-stone-400 ml-2 italic">Institutional Lead</label>
-                    <input type="text" placeholder="Full Name" className="w-full bg-stone-50 border border-stone-100 rounded-3xl px-8 py-5 text-stone-900 placeholder:text-stone-300 focus:outline-none focus:ring-4 focus:ring-red-600/10 transition-all font-bold text-lg" />
+                <div className="bg-white p-10 md:p-14 lg:p-16 rounded-[3rem] md:rounded-[4rem] shadow-2xl border border-stone-100 flex flex-col gap-10 relative z-10">
+                  <div className="space-y-6">
+                    <p className="text-[10px] md:text-xs font-black uppercase tracking-[0.3em] text-stone-400 text-center italic">Connect Directly</p>
+                    <div className="grid grid-cols-3 gap-4 md:gap-6">
+                      <a
+                        href="tel:+919437082564"
+                        onClick={() => logAnalyticsEvent('contact_click', { type: 'phone' })}
+                        className="aspect-square bg-stone-50 rounded-3xl flex flex-col items-center justify-center gap-3 border border-stone-100 hover:bg-stone-900 hover:text-white transition-all duration-500 group/icon"
+                      >
+                        <Phone className="w-6 h-6 md:w-8 md:h-8 group-hover/icon:scale-110 transition-transform" />
+                        <span className="text-[10px] font-black uppercase tracking-widest">Call</span>
+                      </a>
+                      <a
+                        href="https://wa.me/917077533883"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => logAnalyticsEvent('contact_click', { type: 'whatsapp' })}
+                        className="aspect-square bg-green-50 rounded-3xl flex flex-col items-center justify-center gap-3 border border-green-100 text-green-600 hover:bg-green-600 hover:text-white transition-all duration-500 group/icon"
+                      >
+                        <MessageCircle className="w-6 h-6 md:w-8 md:h-8 group-hover/icon:scale-110 transition-transform" />
+                        <span className="text-[10px] font-black uppercase tracking-widest">WhatsApp</span>
+                      </a>
+                      <a
+                        href="mailto:ganeshkej@gmail.com"
+                        onClick={() => logAnalyticsEvent('contact_click', { type: 'email' })}
+                        className="aspect-square bg-blue-50 rounded-3xl flex flex-col items-center justify-center gap-3 border border-blue-100 text-blue-600 hover:bg-blue-900 hover:text-white transition-all duration-500 group/icon"
+                      >
+                        <Mail className="w-6 h-6 md:w-8 md:h-8 group-hover/icon:scale-110 transition-transform" />
+                        <span className="text-[10px] font-black uppercase tracking-widest">Email</span>
+                      </a>
+                    </div>
                   </div>
-                  <div className="space-y-3">
-                    <label className="text-[10px] md:text-xs font-black uppercase tracking-[0.2em] text-stone-400 ml-2 italic">Entity Name</label>
-                    <input type="text" placeholder="Institute / School Name" className="w-full bg-stone-50 border border-stone-100 rounded-3xl px-8 py-5 text-stone-900 placeholder:text-stone-300 focus:outline-none focus:ring-4 focus:ring-red-600/10 transition-all font-bold text-lg" />
+
+                  <hr className="border-stone-100" />
+
+                  <div className="space-y-6">
+                    <p className="text-[10px] md:text-xs font-black uppercase tracking-[0.3em] text-stone-400 text-center italic">Our Locations</p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <a
+                        href="https://maps.app.goo.gl/AaErizvvsHB3ArUa8"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => logAnalyticsEvent('maps_click', { location: 'head_office' })}
+                        className="p-5 bg-stone-50 rounded-2xl border border-stone-100 hover:shadow-lg transition-all text-left group/loc"
+                      >
+                        <MapPin className="w-4 h-4 mt-2 text-stone-300 group-hover/loc:text-red-600" />
+                        <p className="text-[8px] font-black uppercase tracking-widest text-stone-400 mb-1">Head Office</p>
+                        <p className="text-sm font-bold text-stone-900 group-hover/loc:text-red-600 transition-colors">Smartnote Shop, Rourkela</p>
+                      </a>
+                      <a
+                        href="https://maps.app.goo.gl/wmHdeBNwoFUvCUKS9"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => logAnalyticsEvent('maps_click', { location: 'manufacturing_unit' })}
+                        className="p-5 bg-stone-50 rounded-2xl border border-stone-100 hover:shadow-lg transition-all text-left group/loc"
+                      >
+                        <MapPin className="w-4 h-4 mt-2 text-stone-300 group-hover/loc:text-red-600" />
+                        <p className="text-[8px] font-black uppercase tracking-widest text-stone-400 mb-1">Printing Facility</p>
+                        <p className="text-sm font-bold text-stone-900 group-hover/loc:text-red-600 transition-colors">GPW Offset, Rourkela</p>
+                      </a>
+                    </div>
                   </div>
-                  <div className="space-y-3">
-                    <label className="text-[10px] md:text-xs font-black uppercase tracking-[0.2em] text-stone-400 ml-2 italic">Secure Connect</label>
-                    <input type="tel" placeholder="Contact Number" className="w-full bg-stone-50 border border-stone-100 rounded-3xl px-8 py-5 text-stone-900 placeholder:text-stone-300 focus:outline-none focus:ring-4 focus:ring-red-600/10 transition-all font-bold text-lg" />
-                  </div>
-                  <button className="w-full bg-stone-950 hover:bg-black text-white font-black py-6 rounded-[2rem] md:rounded-[2.5rem] transition-all shadow-2xl shadow-stone-950/30 flex justify-center items-center gap-4 mt-4 text-xl italic tracking-tight group/btn relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-r from-red-600 to-orange-600 translate-x-[-100%] group-hover/btn:translate-x-0 transition-transform duration-700 ease-in-out"></div>
-                    <span className="relative z-10 flex items-center gap-3">Get Institutional Quote <ArrowRight className="w-6 h-6 group-hover/btn:translate-x-3 transition-transform duration-500" /></span>
-                  </button>
-                  <p className="text-stone-400 text-[10px] font-black text-center uppercase tracking-[0.3em] italic">GPW Offset Certified Facility • Privacy Assured</p>
-                </form>
+
+                  <p className="text-stone-400 text-[10px] font-black text-center uppercase tracking-[0.3em] italic">GPW Offset Certified Facility • Rourkela, Odisha</p>
+                </div>
               </div>
             </div>
           </div>
@@ -627,7 +689,7 @@ const Home = () => {
                 className="object-contain"
               />
             </div>
-            <span className="text-[10px] md:text-xs font-black uppercase tracking-[0.4em] text-stone-400 italic">Odisha's Industrial Print Standard</span>
+            <span className="text-[10px] md:text-xs font-black uppercase tracking-[0.4em] text-stone-400 italic">Odisha&apos;s Industrial Print Standard</span>
           </div>
 
           <div className="flex flex-wrap justify-center gap-x-12 md:gap-x-16 gap-y-8 mb-4 text-xs md:text-sm font-black uppercase tracking-[0.2em] text-stone-600">
