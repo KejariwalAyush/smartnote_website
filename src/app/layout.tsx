@@ -3,7 +3,7 @@ import "./globals.css";
 import FirebaseAnalytics from "@/components/FirebaseAnalytics";
 
 export const metadata: Metadata = {
-  title: "SmartNote | Premium School Stationery",
+  title: "Smartnote | Premium School Stationery | A GPW Offset Brand",
   description: "Odisha's trusted manufacturer for Answer Booklets, OMR Sheets, and Custom Notebooks. Secure your supply for upcoming academic sessions.",
 };
 

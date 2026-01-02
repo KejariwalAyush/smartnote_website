@@ -84,7 +84,7 @@ const Home = () => {
               {/* <div className={`relative transition-all duration-300 ${scrolled ? 'w-10 h-10' : 'w-14 h-14'} flex items-center justify-center`}>
                 <Image
                   src="/logo.png"
-                  alt="SmartNote Logo"
+                  alt="Smartnote Logo"
                   width={scrolled ? 40 : 56}
                   height={scrolled ? 40 : 56}
                   className="object-contain"
@@ -94,7 +94,7 @@ const Home = () => {
                 <div className="h-6 md:h-8 flex items-center">
                   <Image
                     src="/logo.png"
-                    alt="SmartNote"
+                    alt="Smartnote"
                     width={scrolled ? 80 : 100}
                     height={25}
                     className="object-contain"
@@ -157,7 +157,7 @@ const Home = () => {
             </div>
 
             <div className="mt-auto pb-12 flex flex-col items-center gap-6">
-              <Image src="/logo.png" alt="SmartNote" width={110} height={30} className="mb-4" />
+              <Image src="/logo.png" alt="Smartnote" width={110} height={30} className="mb-4" />
               <div className="flex gap-4">
                 <a href="tel:+919338121008" className="p-4 bg-white rounded-full shadow-lg border border-stone-200 hover:scale-110 active:scale-95 transition-all"><Phone className="w-6 h-6 text-red-600" /></a>
                 <a href="mailto:sales@smartnote.co.in" className="p-4 bg-white rounded-full shadow-lg border border-stone-200 hover:scale-110 active:scale-95 transition-all"><Mail className="w-6 h-6 text-red-600" /></a>
@@ -550,7 +550,7 @@ const Home = () => {
                 <h3 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-[0.01em] italic leading-none mb-10">Quarter Century <br />of Precision.</h3>
                 <div className="space-y-8 text-stone-400 text-lg md:text-xl leading-relaxed font-medium">
                   <p>
-                    <strong className="text-white uppercase tracking-[0.2em] text-base font-black italic">SmartNote</strong> is the premium institutional wing of <strong className="text-white underline decoration-red-600 underline-offset-8">GPW Offset</strong> — a name synonymous with heavy-duty printing infrastructure since 2013.
+                    <strong className="text-white uppercase tracking-[0.2em] text-base font-black italic">Smartnote</strong> is the premium institutional wing of <strong className="text-white underline decoration-red-600 underline-offset-8">GPW Offset</strong> — a name synonymous with heavy-duty printing infrastructure since 2013.
                   </p>
                   <p>
                     From the single machine in Rourkela that started it all, to our current multi-state distribution network, we&apos;ve never shifted our focus: <span className="text-white italic font-bold">Absolute, measurable print quality.</span>
@@ -683,7 +683,7 @@ const Home = () => {
             <div className={`relative transition-all duration-300 w-20 h-20 flex items-center justify-center`}>
               <Image
                 src="/logo.png"
-                alt="SmartNote Logo"
+                alt="Smartnote Logo"
                 width={80}
                 height={80}
                 className="object-contain"
