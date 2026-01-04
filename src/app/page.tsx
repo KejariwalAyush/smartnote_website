@@ -17,7 +17,12 @@ import {
   MapPin,
   ShieldCheck,
   Calendar,
-  MessageCircle
+  MessageCircle,
+  BookAIcon,
+  BookCopyIcon,
+  PrinterCheck,
+  PenBox,
+  PenLine
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { logAnalyticsEvent } from '@/lib/firebase';
@@ -205,7 +210,7 @@ const Home = () => {
                   </span>
                 </h2>
                 <p className="text-lg md:text-xl text-stone-500 max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium">
-                  Odisha&apos;s trusted manufacturer for <strong className="text-stone-900">Answer Booklets, OMR Sheets, and Custom Notebooks</strong>. Secure your supply for the {sessionLabel.toLowerCase()} today.
+                  Odisha&apos;s trusted manufacturer for <strong className="text-stone-900">Answer Booklets, OMR Sheets, Diary, Registers, Copier Paper and Custom Notebooks</strong>. Secure your supply for the {sessionLabel} today.
                 </p>
               </div>
 
@@ -280,6 +285,12 @@ const Home = () => {
                 className="flex gap-18 items-center px-12"
               >
                 {[
+                  {
+                    src: "/rsp_logo.png",
+                    alt: "Rourkela Steel Plant",
+                    name: "RSP (Rourkela Steel Plant)",
+                    invert: true
+                  },
                   {
                     src: "/dalmia-logo.png",
                     alt: "Dalmia Cement",
@@ -414,6 +425,64 @@ const Home = () => {
               </div>
             </motion.div>
 
+            {/* Registers */}
+            <motion.div
+              className="md:col-span-4 rounded-[2.5rem] bg-stone-50 p-8 md:p-10 text-stone-900 border border-stone-200 relative overflow-hidden group shadow-sm hover:shadow-xl transition-all min-h-[280px]"
+              whileHover={{ y: -5 }}
+            >
+              <div className="relative z-10 h-full flex flex-col justify-between">
+                <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center mb-6 shadow-md border border-stone-100">
+                  <BookCopyIcon className="w-6 h-6 text-red-600" />
+                </div>
+                <div>
+                  <h3 className="text-3xl font-black mb-3 italic tracking-tight">Custom Registers</h3>
+                  <p className="text-stone-500 text-base md:text-lg font-medium leading-snug">Premium Registers for daily activities.</p>
+                  <p className="text-stone-500 text-base md:text-lg font-medium leading-snug">Customize with your brand identity and needs.</p>
+                </div>
+              </div>
+              <div className="absolute right-[-5%] top-[-10%] w-[60%] h-[55%] rotate-[-12deg] group-hover:rotate-[-5deg] transition-transform duration-700 hidden lg:block overflow-hidden" >
+                <div className="w-full h-full bg-gradient-to-br from-white/40 to-transparent rounded-3xl backdrop-blur-3xl border border-white/10" style={{ borderRadius: '2.5rem', backgroundImage: 'url(/registers.png)', backgroundSize: 'contain', zoom: 1.2, color: 'transparent' }}></div>
+              </div>
+            </motion.div>
+
+            {/* Copier/Xerox Paper */}
+            <motion.div
+              className="md:col-span-4 rounded-[2.5rem] bg-red-600 p-8 md:p-10 text-white relative overflow-hidden group shadow-xl min-h-[280px]"
+              whileHover={{ y: -5 }}
+            >
+              <div className="relative z-10 h-full flex flex-col justify-between">
+                <div className="w-12 h-12 bg-red-600 rounded-2xl flex items-center justify-center mb-6 shadow-md border border-red-600">
+                  <PrinterCheck className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-3xl font-black mb-3 italic tracking-tight">Copier/Xerox Paper</h3>
+                  <p className="text-red-50/70 text-base md:text-lg font-medium leading-snug">Premium Xerox Paper for printing documents. We have JK, Maple, Satia, and many more.</p>
+                </div>
+              </div>
+              <div className="absolute right-[-5%] top-[-10%] w-[60%] h-[55%] rotate-[-12deg] group-hover:rotate-[-5deg] transition-transform duration-700 hidden lg:block overflow-hidden" >
+                <div className="w-full h-full bg-gradient-to-br from-white/40 to-transparent rounded-3xl backdrop-blur-3xl border border-white/10" style={{ borderRadius: '2.5rem', backgroundImage: 'url(/xerox.png)', backgroundSize: 'contain', zoom: 1.2, color: 'transparent' }}></div>
+              </div>
+            </motion.div>
+
+            {/* Stationery */}
+            <motion.div
+              className="md:col-span-4 rounded-[2.5rem] bg-stone-900 p-8 md:p-10 text-white border border-stone-200 relative overflow-hidden group shadow-sm hover:shadow-xl transition-all min-h-[280px]"
+              whileHover={{ y: -5 }}
+            >
+              <div className="relative z-10 h-full flex flex-col justify-between">
+                <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center mb-6 shadow-md border border-stone-100">
+                  <PenLine className="w-6 h-6 text-stone-600" />
+                </div>
+                <div>
+                  <h3 className="text-3xl font-black mb-3 italic tracking-tight">School Stationery</h3>
+                  <p className="text-stone-500 text-base md:text-lg font-medium leading-snug">All your school stationery at one place.</p>
+                </div>
+              </div>
+              <div className="absolute right-[-5%] top-[-10%] w-[60%] h-[65%] rotate-[-12deg] group-hover:rotate-[-5deg] transition-transform duration-700 hidden lg:block overflow-hidden" >
+                <div className="w-full h-full bg-gradient-to-br from-white/40 to-transparent rounded-3xl backdrop-blur-3xl border border-white/10" style={{ borderRadius: '2.5rem', backgroundImage: 'url(/stationery.png)', backgroundSize: 'contain', zoom: 1.2, color: 'transparent' }}></div>
+              </div>
+            </motion.div>
+
             {/* Office Supply Section */}
             <motion.div
               className="md:col-span-12 rounded-[2.5xl] md:rounded-[3rem] bg-yellow-400 p-8 md:p-14 text-stone-950 relative overflow-hidden group shadow-inner mt-4"
@@ -421,7 +490,7 @@ const Home = () => {
             >
               <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-10">
                 <div className="max-w-xl">
-                  <h3 className="text-4xl md:text-5xl font-black tracking-[0.01em] italic mb-6 leading-none">Comprehensive <br />Print Logistics.</h3>
+                  <h3 className="text-4xl md:text-5xl font-black tracking-[0.01em] italic mb-6 leading-none">Comprehensive Print Logistics.</h3>
                   <p className="font-bold text-stone-900/80 text-lg md:text-xl leading-relaxed">From Admission Envelopes to Progress Report Cards — we handle the complete administrative print load for Odisha&apos;s top institutes.</p>
                 </div>
                 <button
@@ -693,7 +762,7 @@ const Home = () => {
           </div>
 
           <div className="flex flex-wrap justify-center gap-x-12 md:gap-x-16 gap-y-8 mb-4 text-xs md:text-sm font-black uppercase tracking-[0.2em] text-stone-600">
-            {['Answer Sheets', 'OMR Solutions', 'Custom Notebooks', 'Report Cards'].map(link => (
+            {['Answer Sheets', 'Copier Paper', 'OMR Solutions', 'Custom Notebooks', 'Report Cards', 'Register Books', 'Stationery', 'Diary'].map(link => (
               <a key={link} href="#" className="hover:text-red-700 transition-colors relative group py-2">
                 {link}
                 <span className="absolute bottom-0 left-0 w-full h-1 bg-red-600 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500"></span>
